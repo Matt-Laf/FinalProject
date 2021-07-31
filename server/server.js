@@ -3,9 +3,10 @@
 const express = require("express")
 const morgan = require("morgan")
 const bodyParser = require("body-parser")
-
+const { default: fetch } = require("node-fetch");
 const {
-  getUsers
+  getUsers,
+
 } = require("./handlers")
 
 const PORT = 8000
@@ -29,6 +30,8 @@ express()
   .use("/", express.static(__dirname + "/"))
 
   .get("/users", getUsers)
+
+
 
 
 .listen(PORT, () => (console.log(`listening on port ${PORT}`)))
