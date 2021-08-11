@@ -3,9 +3,8 @@
 const express = require("express")
 const morgan = require("morgan")
 const bodyParser = require("body-parser")
-const { default: fetch } = require("node-fetch");
 const {
-  getUsers,
+  getUsers, addUser, addGame, findUser, findGame, sendMessages,
 
 } = require("./handlers")
 
@@ -30,6 +29,14 @@ express()
   .use("/", express.static(__dirname + "/"))
 
   .get("/users", getUsers)
+  .post("/add-user", addUser)
+  .get("/users/:name", findUser)
+
+
+
+  .post("/add-game", addGame)
+  .get("/games/:gameName", findGame)
+  .put("/:gameName/new-message", sendMessages)
 
 
 

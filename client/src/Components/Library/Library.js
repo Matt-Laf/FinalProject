@@ -1,49 +1,73 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+import styled from "styled-components";
+import Footer from "../Footer";
 
 const Library = () => {
-  let [libraries, setLibraries] = useState(undefined)
-  const [libraryID, setLibraryID] = useState(0)
-  // useEffect(() => {
-  //   fetch("https://www.dnd5eapi.co/api")
-  //     .then((res) => {
-  //       res.json()
-  //     })
-  //     .then((data) => {
-  //       setLibraries(data)
-  //     })
-  // }, [])
-  const fetchLibraries = async () => {
-    const apiCall = await fetch("https://www.dnd5eapi.co/api")
-    const data = await apiCall.json()
-    const test = Object.keys(data)
-    setLibraries(test)
-  }
-
-  useEffect(() => {
-    fetchLibraries()
-  }, [libraryID])
-
-  libraries && console.log(libraries)
-
 
 
   return (
-    <div>
-      {libraries &&
-    <div>
-      {libraries.map((library) => {
-        return (
-          <div>
-          {library}
-          </div>
-        )
-      })}
-    </div>
-    }
-    </div>
-    
-    
-  )
-}
+    <Wrapper>
+      <Container>
+        <NavDiv>
+          <LibraryNavs exact to="/conditions">Conditions</LibraryNavs>
+        </NavDiv>
+        <NavDiv>
+          <LibraryNavs exact to="/classes">Classes</LibraryNavs>
+        </NavDiv>
+        <NavDiv>
+          <LibraryNavs exact to="/magicitems">Magic Items</LibraryNavs>
+        </NavDiv>
+        <NavDiv>
+          <LibraryNavs exact to="/monsters/:page">Monsters</LibraryNavs>
+        </NavDiv>
+        <NavDiv>
+          <LibraryNavs exact to="/races">Races</LibraryNavs>
+        </NavDiv>
+        <NavDiv>
+          <LibraryNavs exact to="/spells">Spells</LibraryNavs>
+        </NavDiv>
+        <NavDiv>
+          <LibraryNavs exact to="/weapons">Weapons</LibraryNavs>
+        </NavDiv>
+        
+        
+      </Container>
+      <Footer />
+    </Wrapper>
+  );
+};
+
+const Wrapper = styled.div`
+  width: 100vw;
+`;
+
+const LibraryNavs = styled(NavLink)`
+  text-decoration: none;
+  color: black;
+  text-align: center;
+  font-size: 32px;
+  /* background-color: red; */
+
+  
+`;
+
+const NavDiv = styled.div`
+  margin-right:50px;
+  border-bottom: 2px solid rgba(0,0,0,.5);
+  &:hover {
+    font-weight: bold;
+    border-bottom: 2px solid rgba(0,0,0);
+  }
+`
+
+const Container = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+  height: 81vh;
+  width: 100vw;
+  /* background-color: yellow; */
+`;
 
 export default Library;
