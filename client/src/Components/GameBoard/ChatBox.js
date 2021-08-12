@@ -24,6 +24,8 @@ const ChatBox = () => {
   const [chat, setChat] = useState([]);
   const { playerTokens, setPlayerTokens } = useCanvas();
 
+
+  // Dice rolling useEffect that sends the dice rolled to the chat.
   useEffect(() => {
     if (total) {
       const body = {
@@ -55,6 +57,8 @@ const ChatBox = () => {
     }
   }, [total]);
 
+
+  // message tool.
   const sendChatMessage = (ev) => {
     ev.preventDefault();
     const body = { user: user.name, message: message };
@@ -79,6 +83,7 @@ const ChatBox = () => {
 
   console.log(numberOfDice, die);
 
+  // rolls the dice
   const getTotal = () => {
     let tempTotal = 0;
     for (let i = 1; i <= numberOfDice; i++) {
@@ -110,6 +115,8 @@ const ChatBox = () => {
       });
   }, []);
 
+
+  // adds tokens to the board.  On click, token will be added to GameBoard.js.  Need to add delete button to remove tokens, and set it up so that the tokens can be on the board without having to click the tokens button.  This, in part, goes to saving the canvas state in memory.
   const tokenClick = (token) => {
     console.log(token);
     if (playerTokens.includes(token)) {

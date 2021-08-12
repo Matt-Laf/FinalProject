@@ -5,6 +5,7 @@ import Footer from "../Footer";
 
 const Library = () => {
 
+  // So I found out that the API I used for this actually provides each of the pages AND a search bar.  Neat.  Search bar will be incorporated in the future.  
 
   return (
     <Wrapper>

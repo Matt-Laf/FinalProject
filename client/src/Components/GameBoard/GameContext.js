@@ -153,7 +153,7 @@ export const GameBoardProvider = ({ children }) => {
     mapContextRef.current = context;
   };
 
-  // Drawing Canvas prep
+  // Drawing Canvas initialization
   const prepareDrawCanvas = () => {
     const canvas = drawCanvasRef.current;
     canvas.width = canvas.offsetWidth;
@@ -166,7 +166,7 @@ export const GameBoardProvider = ({ children }) => {
     elements.forEach(({ roughElement }) => roughCanvas.draw(roughElement));
   };
 
-  // Prep GridLayer
+  // Prep GridLayer initialization
   const prepareGridCanvas = () => {
     const canvas = gridCanvasRef.current;
     canvas.width = canvas.offsetWidth;
@@ -175,7 +175,7 @@ export const GameBoardProvider = ({ children }) => {
     gridContextRef.current = gridContext;
   };
 
-  // Draw Grid
+  // Does as it says, draws a grid.  The s variable essentially defines the size of each square
   const drawGrid = () => {
     let s = 41.555;
     let pL = s;
@@ -197,7 +197,7 @@ export const GameBoardProvider = ({ children }) => {
     gridContextRef.current.stroke();
   };
 
-  // Clear Grid
+  // Clear Grid.  "Clears" grid by applying a fill style to the whole map.  This needs to changed to just remove the grid, or effectively make the div clear.  Best option would be to draw the backgorund image in this canvas, and on clear just redraw it.  
   const clearGrid = () => {
     const canvas = gridCanvasRef.current;
     const context = canvas.getContext("2d");
@@ -205,6 +205,8 @@ export const GameBoardProvider = ({ children }) => {
     context.fillRect(0, 0, canvas.width, canvas.height);
   };
 
+
+  // Undo/Redo useEffect
   useEffect(() => {
     const undoRedoFunction = event => {
       if ((event.metaKey || event.ctrlKey) && event.key === "z") {
@@ -229,6 +231,8 @@ export const GameBoardProvider = ({ children }) => {
   };
 
 
+
+  // handles mouseDown events.  Buttons define the tool, which defines the function 
   const handleDrawMouseDown = (Event) => {
     const { clientX, clientY } = Event;
     if (tool === "selection") {
@@ -262,6 +266,7 @@ export const GameBoardProvider = ({ children }) => {
     }
   };
 
+  // Mouse Move event.  Takes the tool info, along with the action defined by mousedown event, and draws, selects, etc.
   const handleDrawMouseMove = (Event) => {
     const { clientX, clientY } = Event;
 
@@ -296,6 +301,8 @@ export const GameBoardProvider = ({ children }) => {
     }
   };
 
+
+  // Mouse up event.  Ends any action being performed.  
   const handleDrawMouseUp = () => {
     if (selectedElement) {
       const index = selectedElement.id;

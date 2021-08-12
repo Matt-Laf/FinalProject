@@ -40,10 +40,13 @@ const GameBoard = (props) => {
 
   const [game, setGame] = useState(null)
 
+  // Defines layer.  Currently token layer and drawing layer are not the same, so to be able to either use tokens or draw, the z-index of each needs to be changed, as defined by the layerup/down buttons.
   const [drawLayer, setDrawLayer] = useState(4)
   const [tokenLayer, setTokenLayer] = useState(5)
 
  console.log(playerTokens)
+
+  // Every game is in MongoDB.  Currently defines players, messages, maps, and tokens.  Will be used later to save the canvas states, upload new maps and tokens, and adding new players.  
   useEffect(() => {
     fetch(`/games/${gameName}`)
       .then((res) => res.json())
@@ -55,6 +58,8 @@ const GameBoard = (props) => {
       }) 
   }, [])
 
+
+  // All use effects to draw each canvas
   useEffect(() => {
     prepareGridCanvas();
   }, []);
@@ -78,7 +83,7 @@ const GameBoard = (props) => {
   };
 
   
-  // style={{ backgroundImage: `url(${game.maps[0]})`
+  // Once socket is set up and I can get multiple players on the board, a similar function to this will be used to define what player sees what, as a user flagged as DM should be able to see more content than those that aren't
   const checkRole = () => {
     if (user !== null)
     user.games.find((game) => {
